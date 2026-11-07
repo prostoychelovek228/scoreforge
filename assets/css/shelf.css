@@ -1,0 +1,314 @@
+/* Home page: the 3D textbook shelf. Every length scales from --H. */
+:root { --H: min(88vw, 44svh); }
+@media (min-width: 768px) { :root { --H: min(46vh, 31vw); } }
+
+body.home { overflow: hidden; height: 100svh; user-select: none; -webkit-user-select: none; }
+.has-cursor, .has-cursor body, .has-cursor a, .has-cursor button, .has-cursor summary, .has-cursor .tape { cursor: none; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.probe { position: absolute; left: -9999px; width: 1px; height: var(--H); visibility: hidden; }
+.sprite { position: absolute; }
+
+.home .bar { position: fixed; top: 0; left: 0; right: 0; }
+
+/* Path tabs */
+.tabs {
+  position: fixed;
+  left: 50%;
+  top: calc(50% - var(--H) / 2 - 70px);
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+}
+.tab {
+  position: relative;
+  z-index: 1;
+  height: 28px;
+  margin-left: -1px;
+  padding: 0 7px;
+  font-size: 9px;
+  border: 1px solid var(--rule);
+  white-space: nowrap;
+  transition: color .45s var(--ease);
+}
+.tab[aria-current="true"] { color: #fff; }
+.tab-ind {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--cobalt);
+  transition: width .6s var(--ease), transform .6s var(--ease);
+}
+
+/* The stage */
+.shelf {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(50% - var(--H) / 2 - 40px);
+  height: calc(var(--H) + 80px);
+  z-index: 5;
+  perspective: calc(var(--H) * 5.3);
+  perspective-origin: 50% 50%;
+  touch-action: pan-y;
+}
+.stage { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.tape {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  cursor: pointer;
+}
+.face {
+  position: absolute;
+  top: calc(var(--H) / -2);
+  height: var(--H);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.face svg { display: block; width: 100%; height: 100%; }
+/* Light falling across a turning book */
+.face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: var(--shade, 0);
+  pointer-events: none;
+}
+.sp { width: var(--ws); left: calc(var(--ws) / -2); transform: translateZ(calc(var(--d) / 2)); }
+.cv {
+  width: var(--d);
+  left: calc(var(--d) / -2);
+  transform: rotateY(90deg) translateZ(calc(var(--ws) / 2));
+}
+.back {
+  width: var(--d);
+  left: calc(var(--d) / -2);
+  transform: rotateY(-90deg) translateZ(calc(var(--ws) / 2));
+  --shade: .5;
+}
+/* The page block, seen only when the open book leans towards the cursor */
+.edge, .topside { display: none; background: repeating-linear-gradient(90deg, #F1EBDD 0 1px, #D8D0BD 1px 2px); }
+.edge { width: var(--ws); left: calc(var(--ws) / -2); transform: rotateY(180deg) translateZ(calc(var(--d) / 2)); }
+.topside {
+  width: var(--ws);
+  height: var(--d);
+  left: calc(var(--ws) / -2);
+  top: calc(var(--d) / -2);
+  transform: rotateX(90deg) translateZ(calc(var(--H) / 2));
+  background: repeating-linear-gradient(0deg, #F1EBDD 0 1px, #D8D0BD 1px 2px);
+}
+.tape.near .edge, .tape.near .topside { display: block; }
+.tape.near .cv { box-shadow: 0 30px 60px -28px rgba(20, 16, 10, .55); overflow: visible; }
+
+/* Open ring */
+.ring {
+  position: fixed;
+  z-index: 12;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--cobalt);
+  color: var(--cobalt);
+  background: rgba(237, 235, 230, .82);
+}
+
+/* Caption */
+.caption {
+  position: fixed;
+  left: 50%;
+  top: calc(50% + var(--H) / 2 + 26px);
+  transform: translateX(-50%);
+  z-index: 8;
+  width: min(92vw, 760px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  text-align: center;
+}
+.mask { position: relative; width: 100%; overflow: hidden; }
+.mask > span { display: block; }
+.mask > span + span { position: absolute; left: 0; right: 0; top: 0; }
+.cap-title { font: 400 24px/1.12 var(--serif); letter-spacing: -.01em; padding-bottom: .1em; }
+.cap-sub { color: var(--cobalt); font-weight: 500; font-size: 9.5px; line-height: 1.25; }
+.cap-note { font: 500 11px/1.25 var(--sans); letter-spacing: .05em; }
+
+/* Arrows */
+.arrow {
+  position: fixed;
+  z-index: 9;
+  top: calc(50% + var(--H) / 2 + 22px);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+}
+.arrow-l { left: 6px; }
+.arrow-r { right: 6px; }
+
+/* Footer */
+.hfoot {
+  position: fixed;
+  z-index: 8;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 20px;
+  font-size: 9px;
+  line-height: 1.3;
+}
+.hfoot .week-link { color: var(--cobalt); text-underline-offset: 3px; }
+.hint { display: none; color: var(--muted); }
+@media (min-width: 1200px) { .hint { display: inline; } }
+
+/* Custom cursor */
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  width: 58px;
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  pointer-events: none;
+  display: none;
+}
+.has-cursor .cursor { display: block; }
+.cursor-ring {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  transition: transform .5s var(--ease), background-color .4s var(--ease), border-color .4s var(--ease);
+}
+.cursor-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--ink);
+  transition: transform .4s var(--ease);
+}
+.cursor-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font: 600 10px/1.25 var(--sans);
+  letter-spacing: .08em;
+  color: #fff;
+  transform: scale(0);
+  transition: transform .45s var(--ease);
+}
+.cursor.spine .cursor-ring { transform: scale(.72); }
+.cursor.btn .cursor-ring { transform: scale(.55); }
+.cursor.btn .cursor-dot { transform: scale(0); }
+.cursor.open .cursor-ring { transform: scale(1.75); background: var(--cobalt); border-color: var(--cobalt); }
+.cursor.open .cursor-dot { transform: scale(0); }
+.cursor.open .cursor-label { transform: scale(1); }
+
+/* Detail sheet */
+.detail {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  visibility: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--sheet);
+  padding: 84px 22px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.detail-close { position: absolute; left: 16px; top: 16px; z-index: 2; background: var(--sheet); }
+.close-en { display: none; }
+.detail-logo { position: absolute; left: 0; right: 0; top: 0; height: 64px; display: flex; align-items: center; justify-content: center; }
+.detail-poster { order: -1; display: flex; justify-content: center; }
+.poster { height: 46svh; width: auto; aspect-ratio: 700 / 1000; overflow: visible; }
+.detail-text { display: flex; flex-direction: column; gap: 14px; max-width: 520px; }
+.mline { overflow: hidden; }
+.mline > * { display: block; }
+.d-sub { color: var(--cobalt); font-weight: 500; line-height: 1.3; }
+.d-title { font: 400 40px/1.04 var(--serif); letter-spacing: -.025em; padding-bottom: .12em; margin: 0; }
+.d-meta { color: var(--muted); line-height: 1.35; }
+.d-text { font-size: 16px; line-height: 1.5; max-width: 42ch; }
+.d-credit { font-style: italic; font-size: 15px; line-height: 1.45; color: var(--muted); }
+.d-actions { display: flex !important; flex-wrap: wrap; gap: 8px; padding-top: 6px; }
+.cta { height: 44px; padding: 0 16px; border-color: var(--cobalt); color: var(--cobalt); }
+a.cta:hover { background: var(--cobalt); color: #fff; }
+.cta-main { background: var(--cobalt); color: #fff; }
+
+noscript .fallback {
+  position: fixed;
+  inset: 84px 16px auto;
+  z-index: 70;
+  background: var(--sheet);
+  padding: 20px;
+  border: 1px solid var(--rule);
+}
+
+@media (min-width: 768px) {
+  .tabs { top: calc(50% - var(--H) / 2 - 86px); }
+  .tab { height: 23px; padding: 0 11px; font-size: 10.5px; }
+  .caption { top: calc(50% + var(--H) / 2 + 30px); gap: 9px; }
+  .cap-title { font-size: 31px; }
+  .cap-sub { font-size: 10.5px; }
+  .arrow { top: calc(50% + var(--H) / 2 + 40px); }
+  .arrow-l { left: 20px; }
+  .arrow-r { right: 20px; }
+  .hfoot { left: 32px; right: 32px; bottom: 24px; font-size: 10.5px; }
+  .detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4vw;
+    align-items: center;
+    padding: 110px 6vw 56px 7vw;
+  }
+  .detail-close { left: 32px; top: 31px; }
+  .detail-logo { height: 84px; }
+  .detail-poster { order: 0; height: 100%; align-items: center; }
+  .poster { height: min(100%, 72vh); max-height: 72vh; }
+  .detail-text { gap: 18px; }
+  .d-title { font-size: clamp(44px, 5.4vw, 84px); line-height: 1; }
+  .d-text { font-size: 17px; }
+  .close-en { display: inline; }
+}
+
+/* Phones held sideways: less room, so drop the extras. Must stay last. */
+@media (max-height: 520px) {
+  :root { --H: 44vh; }
+  .tabs, .cap-note, .hint { display: none !important; }
+  .caption { top: calc(50% + var(--H) / 2 + 8px); gap: 4px; }
+  .cap-title { font-size: 19px; }
+  .arrow { top: calc(50% + var(--H) / 2 + 2px); }
+  .hfoot { bottom: 8px; }
+}

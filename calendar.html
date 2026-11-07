@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Календарь экзаменов · scoreforge.lab</title>
+<meta name="description" content="Даты SAT, AP, CSCA и международных олимпиад с пометкой, когда они проверены, и ссылками на источники.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body class="page">
+<header class="bar">
+  <details class="menu">
+    <summary class="box lbl">Меню</summary>
+    <nav class="menu-sheet" aria-label="Разделы">
+      <a href="index.html">Главная</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="routes.html">Маршруты</a>
+      <a href="posts.html">Разборы</a>
+      <a href="weekly.html">Задача недели</a>
+      <a href="journal.html">Журнал ошибок</a>
+      <a href="calendar.html" aria-current="page">Календарь</a>
+      <a href="about.html">О проекте</a>
+    </nav>
+  </details>
+  <nav class="bar-nav" aria-label="Разделы">
+    <a class="box lbl" href="catalog.html">Каталог</a>
+    <a class="box lbl" href="routes.html">Маршруты</a>
+    <a class="box lbl" href="posts.html">Разборы</a>
+    <a class="box lbl" href="weekly.html">Задача</a>
+  </nav>
+  <a class="logo" href="index.html" aria-label="scoreforge.lab, на главную">
+    <span class="logo-a">scoreforge.lab</span>
+    <span class="logo-b">Бесплатный навигатор</span>
+  </a>
+  <nav class="bar-nav bar-nav-r" aria-label="Инструменты">
+    <a class="box lbl" href="journal.html">Журнал</a>
+    <a class="box lbl" href="calendar.html" aria-current="page">Календарь</a>
+    <a class="box lbl" href="about.html">О проекте</a>
+  </nav>
+  <a class="box lbl bar-quick" href="catalog.html">Каталог</a>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <p class="lbl kicker">Календарь / Calendar</p>
+    <h1 class="page-title">Когда что сдавать</h1>
+    <p class="page-lead">У каждой даты стоит пометка, когда я её проверил. Если источники спорят, так и написано красным. Перед записью всё равно загляни на официальный сайт: организаторы иногда передумывают, а меня об этом не предупреждают.</p>
+  </div>
+
+  <section class="cal-group">
+    <h2 class="section-title">Ближайшие даты</h2>
+    <div class="cal-list" id="cal-upcoming"></div>
+    <noscript><p class="empty">Календарю нужен JavaScript. Все даты лежат в файле <a href="data/calendar.csv">data/calendar.csv</a>.</p></noscript>
+  </section>
+
+  <section class="cal-group">
+    <h2 class="section-title">Без единой даты</h2>
+    <div class="cal-list" id="cal-open"></div>
+  </section>
+
+  <details class="past-toggle" id="cal-past-wrap" hidden>
+    <summary>Уже прошло</summary>
+    <div id="cal-past"></div>
+  </details>
+</main>
+
+<footer class="foot">
+  <p>Независимый учебный проект, не связан с организаторами экзаменов</p>
+  <a href="about.html">Дисклеймер и правила</a>
+</footer>
+
+<script src="assets/js/csv.js"></script>
+<script src="assets/js/calendar.js"></script>
+</body>
+</html>

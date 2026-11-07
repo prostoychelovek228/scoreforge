@@ -1,0 +1,53 @@
+# Every Monday: open all links, save the result for the catalog page, report dead ones as an issue.
+# Only runs on schedule or by hand, so outside pull requests can never trigger it.
+name: Check links
+
+on:
+  schedule:
+    - cron: '17 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      # Pinned to an exact commit of v7.0.1.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Check links
+        shell: pwsh
+        run: ./.github/scripts/check-links.ps1 -ReportPath "$env:RUNNER_TEMP/report.md"
+
+      # The weekly commit also counts as activity, which keeps the schedule from being switched off.
+      - name: Save status
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/link-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Weekly link check"
+            git push
+            gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" || true
+          fi
+
+      - name: Report dead links
+        run: |
+          title="Link check: some links do not open"
+          number=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+          if [ -s "$RUNNER_TEMP/report.md" ]; then
+            if [ -n "$number" ]; then
+              gh issue edit "$number" --body-file "$RUNNER_TEMP/report.md"
+            else
+              gh issue create --title "$title" --body-file "$RUNNER_TEMP/report.md" --assignee "$GITHUB_REPOSITORY_OWNER"
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --comment "All links open again."
+          fi

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Журнал ошибок · scoreforge.lab</title>
+<meta name="description" content="Бесплатный шаблон журнала ошибок для подготовки к экзаменам: три колонки и пять минут после каждой практики.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body class="page">
+<header class="bar">
+  <details class="menu">
+    <summary class="box lbl">Меню</summary>
+    <nav class="menu-sheet" aria-label="Разделы">
+      <a href="index.html">Главная</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="routes.html">Маршруты</a>
+      <a href="posts.html">Разборы</a>
+      <a href="weekly.html">Задача недели</a>
+      <a href="journal.html" aria-current="page">Журнал ошибок</a>
+      <a href="calendar.html">Календарь</a>
+      <a href="about.html">О проекте</a>
+    </nav>
+  </details>
+  <nav class="bar-nav" aria-label="Разделы">
+    <a class="box lbl" href="catalog.html">Каталог</a>
+    <a class="box lbl" href="routes.html">Маршруты</a>
+    <a class="box lbl" href="posts.html">Разборы</a>
+    <a class="box lbl" href="weekly.html">Задача</a>
+  </nav>
+  <a class="logo" href="index.html" aria-label="scoreforge.lab, на главную">
+    <span class="logo-a">scoreforge.lab</span>
+    <span class="logo-b">Бесплатный навигатор</span>
+  </a>
+  <nav class="bar-nav bar-nav-r" aria-label="Инструменты">
+    <a class="box lbl" href="journal.html" aria-current="page">Журнал</a>
+    <a class="box lbl" href="calendar.html">Календарь</a>
+    <a class="box lbl" href="about.html">О проекте</a>
+  </nav>
+  <a class="box lbl bar-quick" href="catalog.html">Каталог</a>
+</header>
+
+<main class="wrap">
+  <div class="no-print">
+    <div class="page-head">
+      <p class="lbl kicker">Журнал ошибок / Error log</p>
+      <h1 class="page-title">Журнал ошибок</h1>
+      <p class="page-lead">Официальные платформы дают практику, а разбор остаётся на тебе. Этот шаблон занимает пять минут после занятия и показывает то, чего не покажет ни один балл: как именно тебя ловят.</p>
+    </div>
+
+    <div class="steps">
+      <section class="step">
+        <p class="lbl">Колонка 1</p>
+        <h2>Где ошибка</h2>
+        <p>Откуда задача и что пошло не так. Коротко, одной строкой.</p>
+      </section>
+      <section class="step">
+        <p class="lbl">Колонка 2</p>
+        <h2>Почему так вышло</h2>
+        <p>Настоящая причина, а не просто «невнимательность». Подсказки есть ниже.</p>
+      </section>
+      <section class="step">
+        <p class="lbl">Колонка 3</p>
+        <h2>Как проверю в следующий раз</h2>
+        <p>Конкретное действие, которое можно сделать прямо на экзамене.</p>
+      </section>
+    </div>
+
+    <p class="lbl reasons-label">Частые причины</p>
+    <div class="reasons">
+      <span class="reason">Не знаю правило</span>
+      <span class="reason">Неверно прочитано условие</span>
+      <span class="reason">Ошибка в счёте</span>
+      <span class="reason">Не хватило времени</span>
+      <span class="reason">Попались на ловушку в вариантах</span>
+      <span class="reason">Угадывание</span>
+    </div>
+
+    <div class="actions">
+      <a class="box lbl cta-link solid" href="downloads/zhurnal-oshibok.xlsx" download>Скачать Excel (.xlsx)</a>
+      <button class="box lbl cta-link" id="print-btn" type="button">Распечатать / PDF</button>
+    </div>
+    <p class="card-note actions-note">Файл открывается в Excel, Google Таблицах и других редакторах. Журнал твой и остаётся у тебя: сюда ничего не отправляется.</p>
+  </div>
+
+  <section class="sheet-wrap" aria-label="Шаблон журнала ошибок">
+    <h2 class="sheet-title">Журнал ошибок <span class="lbl sheet-brand">scoreforge.lab</span></h2>
+    <table class="sheet">
+      <thead>
+        <tr>
+          <th scope="col">Где ошибка</th>
+          <th scope="col">Почему так вышло</th>
+          <th scope="col">Как проверю в следующий раз</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="sample">
+          <td>Пробник 1, Math, вопрос про проценты. Выбран ответ «+5%».</td>
+          <td>Попались на ловушку: сложены проценты, идущие подряд.</td>
+          <td>Если проценты подряд, умножаю множители: 1,25 × 0,80.</td>
+        </tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Независимый учебный проект, не связан с организаторами экзаменов</p>
+  <a href="about.html">Дисклеймер и правила</a>
+</footer>
+
+<script src="assets/js/journal.js"></script>
+</body>
+</html>

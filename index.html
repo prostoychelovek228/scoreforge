@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>scoreforge.lab · бесплатный навигатор по экзаменам для поступления</title>
+<meta name="description" content="Бесплатная библиотека на русском: что где лежит и с чего начать подготовку к SAT, IELTS, TOEFL, Duolingo English Test, CSCA, AP и международным олимпиадам.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/literata-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/intertight-normal-500-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/shelf.css">
+</head>
+<body class="home">
+<h1 class="sr-only">scoreforge.lab: бесплатный навигатор по подготовке к экзаменам для поступления за границу</h1>
+<div class="probe" id="probe" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="bar" data-behind-sheet>
+  <details class="menu">
+    <summary class="box lbl">Меню</summary>
+    <nav class="menu-sheet" aria-label="Разделы">
+      <a href="index.html" aria-current="page">Главная</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="routes.html">Маршруты</a>
+      <a href="posts.html">Разборы</a>
+      <a href="weekly.html">Задача недели</a>
+      <a href="journal.html">Журнал ошибок</a>
+      <a href="calendar.html">Календарь</a>
+      <a href="about.html">О проекте</a>
+    </nav>
+  </details>
+  <nav class="bar-nav" aria-label="Разделы">
+    <a class="box lbl" href="catalog.html">Каталог</a>
+    <a class="box lbl" href="routes.html">Маршруты</a>
+    <a class="box lbl" href="posts.html">Разборы</a>
+    <a class="box lbl" href="weekly.html">Задача</a>
+  </nav>
+  <a class="logo" href="index.html" aria-label="scoreforge.lab, на главную">
+    <span class="logo-a">scoreforge.lab</span>
+    <span class="logo-b">Бесплатный навигатор</span>
+  </a>
+  <nav class="bar-nav bar-nav-r" aria-label="Инструменты">
+    <a class="box lbl" href="journal.html">Журнал</a>
+    <a class="box lbl" href="calendar.html">Календарь</a>
+    <a class="box lbl" href="about.html">О проекте</a>
+  </nav>
+  <a class="box lbl bar-quick" href="catalog.html">Каталог</a>
+</header>
+
+<nav class="tabs" id="tabs" aria-label="Выбери путь" data-behind-sheet>
+  <span class="tab-ind" id="tab-ind" aria-hidden="true"></span>
+</nav>
+
+<section class="shelf" id="shelf" aria-label="Полка учебников" data-behind-sheet>
+  <div class="stage" id="stage"></div>
+</section>
+
+<button class="ring" id="ring" type="button" aria-label="Открыть учебник" data-behind-sheet>
+  <svg width="20" height="16" viewBox="0 0 20 16" aria-hidden="true"><path d="M10 3.200C8 1.300 4.600.8 1 1.300V14c3.600-.5 7 0 9 1.800 2-1.800 5.400-2.300 9-1.800V1.300C15.400.8 12 1.300 10 3.200Z" fill="currentColor"/></svg>
+</button>
+
+<div class="caption" aria-live="polite" data-behind-sheet>
+  <div class="mask cap-title" id="cap-title"></div>
+  <div class="mask cap-sub lbl" id="cap-sub"></div>
+  <div class="mask cap-note" id="cap-note"></div>
+</div>
+
+<button class="arrow arrow-l" id="arrow-l" type="button" aria-label="Предыдущий учебник" data-behind-sheet>
+  <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.200" aria-hidden="true"><path d="M5 1L1 5L5 9M1 5H17"/></svg>
+</button>
+<button class="arrow arrow-r" id="arrow-r" type="button" aria-label="Следующий учебник" data-behind-sheet>
+  <svg width="18" height="10" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.200" aria-hidden="true"><path d="M13 1L17 5L13 9M17 5H1"/></svg>
+</button>
+
+<footer class="hfoot lbl" data-behind-sheet>
+  <span>Независимый учебный проект, не связан с организаторами экзаменов</span>
+  <span class="hint">Листай полку и жми на обложку</span>
+  <a class="week-link" id="week-link" href="weekly.html">Задача недели →</a>
+</footer>
+
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="d-title">
+  <button class="box lbl detail-close" id="detail-close" type="button">Закрыть<span class="close-en">&nbsp;/ Close</span></button>
+  <div class="detail-logo">
+    <span class="logo"><span class="logo-a">scoreforge.lab</span><span class="logo-b">Бесплатный навигатор</span></span>
+  </div>
+  <div class="detail-text">
+    <div class="mline"><span class="lbl d-sub" id="d-sub"></span></div>
+    <div class="mline"><h2 class="d-title" id="d-title"></h2></div>
+    <div class="mline"><span class="lbl d-meta" id="d-meta"></span></div>
+    <div class="mline"><p class="d-text" id="d-text"></p></div>
+    <div class="mline"><p class="d-credit" id="d-credit"></p></div>
+    <div class="mline">
+      <div class="d-actions">
+        <a class="box lbl cta cta-main" id="d-catalog" href="catalog.html">Ресурсы в каталоге</a>
+        <a class="box lbl cta" id="d-route" href="routes.html">Маршрут на 12 недель</a>
+        <a class="box lbl cta" href="calendar.html">Календарь</a>
+      </div>
+    </div>
+  </div>
+  <div class="detail-poster" aria-hidden="true">
+    <svg class="poster" viewBox="0 0 700 1000" focusable="false">
+      <defs>
+        <filter id="ink" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1100" height="1400">
+          <feTurbulence type="fractalNoise" baseFrequency=".011" numOctaves="3" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <mask id="ink-mask" maskUnits="userSpaceOnUse" x="-200" y="-200" width="1100" height="1400">
+          <g id="ink-blobs" filter="url(#ink)" fill="#fff">
+            <circle cx="222" cy="367" r="0"/>
+            <circle cx="502" cy="667" r="0"/>
+            <circle cx="369" cy="133" r="0"/>
+            <circle cx="133" cy="844" r="0"/>
+            <circle cx="591" cy="278" r="0"/>
+            <circle cx="384" cy="956" r="0"/>
+            <circle cx="340" cy="522" r="0"/>
+          </g>
+        </mask>
+      </defs>
+      <g id="poster-art" mask="url(#ink-mask)"><use id="d-cover" href="#cv-sat" width="700" height="1000"/></g>
+    </svg>
+  </div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true">
+  <div class="cursor-ring"></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-label"><span>ОТКРЫТЬ</span><span>OPEN</span></div>
+</div>
+
+<noscript>
+  <div class="fallback">
+    <p>Полке нужен JavaScript, но вся библиотека доступна и без него:</p>
+    <p><a href="catalog.html">Каталог</a> · <a href="routes.html">Маршруты</a> · <a href="posts.html">Разборы</a>
+      <a href="weekly.html">Задача недели</a> · <a href="journal.html">Журнал ошибок</a> · <a href="calendar.html">Календарь</a> · <a href="about.html">О проекте</a></p>
+  </div>
+</noscript>
+
+<script src="assets/js/csv.js"></script>
+<script src="assets/js/books.js"></script>
+<script src="assets/js/shelf.js"></script>
+<script src="assets/js/weekly.js"></script>
+</body>
+</html>
