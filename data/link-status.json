@@ -1,26 +1,26 @@
 {
-  "checked": "2026-11-07",
+  "checked": "2026-11-09",
   "total": 46,
   "broken": [
     {
       "url": "https://takeielts.britishcouncil.org/take-ielts/prepare/free-ielts-english-practice-tests",
       "status": 0,
-      "weeks": 1
+      "weeks": 2
     },
     {
       "url": "https://ipho-new.org/documentations",
       "status": 0,
-      "weeks": 1
+      "weeks": 2
     },
     {
       "url": "https://www.icho.sk/competition-problems/",
       "status": 0,
-      "weeks": 1
+      "weeks": 2
     },
     {
       "url": "https://www.icho.sk/preparatory-problems/",
       "status": 0,
-      "weeks": 1
+      "weeks": 2
     }
   ],
   "blocked": [
