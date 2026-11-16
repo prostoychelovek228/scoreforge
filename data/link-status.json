@@ -1,33 +1,29 @@
 {
-  "checked": "2026-11-09",
+  "checked": "2026-11-16",
   "total": 46,
   "broken": [
     {
       "url": "https://takeielts.britishcouncil.org/take-ielts/prepare/free-ielts-english-practice-tests",
       "status": 0,
-      "weeks": 2
+      "weeks": 3
     },
     {
       "url": "https://ipho-new.org/documentations",
       "status": 0,
-      "weeks": 2
+      "weeks": 3
     },
     {
       "url": "https://www.icho.sk/competition-problems/",
       "status": 0,
-      "weeks": 2
+      "weeks": 3
     },
     {
       "url": "https://www.icho.sk/preparatory-problems/",
       "status": 0,
-      "weeks": 2
+      "weeks": 3
     }
   ],
   "blocked": [
-    {
-      "url": "https://csca.app/en/practice",
-      "status": 429
-    },
     {
       "url": "https://artofproblemsolving.com/wiki/index.php/Mathematics_competitions_resources",
       "status": 403
